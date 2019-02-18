@@ -7,7 +7,6 @@ const NoteTable = ({
   onDeleteAll,
   onEdit,
   onEditChange,
-  onFilter,
   onComplete,
   filterer = '',
 }) => (
@@ -33,37 +32,37 @@ const NoteTable = ({
 
             <div key={index} className="list-group-item">
               <div>
-                <span className={!note.completed ? "text-success mr-1" : "text-info mr-1"}>Title:</span>
+                <span className={note.completed ? "text-success mr-1" : "text-info mr-1"}>Title:</span>
                 {note.title}
               </div>
               <div>
-                <span className={!note.completed ? "text-success mr-1" : "text-info mr-1"}>
+                <span className={note.completed ? "text-success mr-1" : "text-info mr-1"}>
                   Description:
               </span>
                 {note.description}
-                {!note.completed && <div className="text-success text-small">Task Completed</div>}
+                {note.completed && <div className="text-success text-small">Task Completed</div>}
               </div>
               <div className="mt-3">
-                {note.completed && (
+                {!note.completed && (
                   <React.Fragment>
                     <button
                       className='btn btn-danger btn-sm mr-3'
                       onClick={() => onDelete(index)}
                     >
                       Delete
-          </button>
+                    </button>
                     <button
                       className='btn btn-success btn-sm'
                       onClick={() => onEdit(index)}
                     >
                       Edit
-          </button>
+                    </button>
                     <button
                       className='btn btn-warning btn-sm ml-3'
                       onClick={() => onComplete(index)}
                     >
                       Complete Task
-          </button>
+                    </button>
                   </React.Fragment>
                 )}
               </div>

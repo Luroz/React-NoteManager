@@ -23,7 +23,7 @@ const NoteForm = ({ title, description, onChange, onClear, submit }) => {
             onChange={onChange}
           />
           <div className='checkbox disabled'>
-            Important
+
           </div>
           <div className="d-flex justify-content-center mt-3">
             <button type="submit" className="btn btn-success btn-md mr-3">

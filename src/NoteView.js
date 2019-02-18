@@ -2,11 +2,14 @@ import React, { Component } from 'react';
 import NoteNav from './Components/NoteNav'
 import NoteForm from './Components/NoteForm';
 import NoteTable from './Components/NoteTable';
+import fire from './config/Fire';
+import LogIn from './Components/LogIn';
 
 class NoteView extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      user: '',
       title: '',
       description: '',
       highImportance: '',
@@ -24,12 +27,19 @@ class NoteView extends Component {
           description: 'Notes taken at work are most important',
           highImportance: true,
           edit: false,
-          completed: true
+          completed: false
         }
       ],
       results: []
     }
   }
+
+
+  componentDidMount() {
+    this.authListener();
+  }
+
+
 
   onChange = ({ target: { name, value } }) => {
     this.setState({
@@ -54,7 +64,7 @@ class NoteView extends Component {
     console.log('asdasd');
     e.preventDefault();
     if (title.lenght !== 0 && description.length !== 0) {
-      const newNote = notes.concat({ title, description, edit: false })
+      const newNote = notes.concat({ title, description, edit: false, completed: false })
       this.setState({
         notes: newNote
       }, () => {
@@ -128,7 +138,7 @@ class NoteView extends Component {
     const { notes } = this.state;
     const completed = notes.map((note, index) => {
       if (index === noteIndex) {
-        return { ...note, completed }
+        return Object.assign({}, note, { completed: true })
       }
       return note;
     });
@@ -137,40 +147,54 @@ class NoteView extends Component {
     })
   }
 
+  authListener = () => {
+    fire.auth().onAuthStateChanged((user) => {
+      if (user) {
+        this.setState({ user });
+        localStorage.setItem('user', user.uid);
+      } else {
+        this.setState({ user: null });
+        localStorage.removeItem('user');
+      }
+    });
+  }
+
 
   render() {
-    const { title, description, notes, results, filter } = this.state;
+    const { title, description, notes, results, filter, user } = this.state;
     return (
       <React.Fragment>
         <div className='Navbar'>
           <NoteNav />
         </div>
         <div className="container">
-          <div className="row">
-            <div className="col-md-6 mt-3">
-              <NoteForm
-                title={title}
-                description={description}
-                onChange={this.onChange}
-                onClear={this.onClear}
-                submit={this.onSubmit}
+          {user ?
+            <div className="row">
+              <div className="col-md-6 mt-3">
+                <NoteForm
+                  title={title}
+                  description={description}
+                  onChange={this.onChange}
+                  onClear={this.onClear}
+                  submit={this.onSubmit}
 
-              />
-            </div>
-            <div className="col-md-6 mt-3">
-              <NoteTable
-                notes={filter === '' ? notes : results}
-                onDelete={this.onDelete}
-                onDeleteAll={this.onDeleteAll}
-                onEditChange={this.onEditChange}
-                onEdit={this.onEdit}
-                filterer={filter}
-                onFilter={this.onFilter}
-                onChange={this.onChange}
-                onComplete={this.onComplete}
-              />
-            </div>
-          </div>
+                />
+              </div>
+              <div className="col-md-6 mt-3">
+                <NoteTable
+                  notes={filter === '' ? notes : results}
+                  onDelete={this.onDelete}
+                  onDeleteAll={this.onDeleteAll}
+                  onEditChange={this.onEditChange}
+                  onEdit={this.onEdit}
+                  filterer={filter}
+                  onFilter={this.onFilter}
+                  onChange={this.onChange}
+                  onComplete={this.onComplete}
+                />
+              </div>
+            </div> : <LogIn />}
+
         </div>
       </React.Fragment>
     )

@@ -1,0 +1,25 @@
+[debug] [2019-02-16T06:07:41.535Z] ----------------------------------------------------------------------
+[debug] [2019-02-16T06:07:41.538Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\itsan\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js serve
+[debug] [2019-02-16T06:07:41.538Z] CLI Version:   6.3.1
+[debug] [2019-02-16T06:07:41.538Z] Platform:      win32
+[debug] [2019-02-16T06:07:41.538Z] Node Version:  v8.12.0
+[debug] [2019-02-16T06:07:41.539Z] Time:          Sat Feb 16 2019 02:07:41 GMT-0400 (Hora estándar de Venezuela)
+[debug] [2019-02-16T06:07:41.539Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2019-02-16T06:07:41.550Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2019-02-16T06:07:41.550Z] > authorizing via signed-in user
+[debug] [2019-02-16T06:07:41.551Z] [iam] checking project notemanag for permissions ["firebase.projects.get"]
+[debug] [2019-02-16T06:07:41.553Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/notemanag:testIamPermissions  
+
+[debug] [2019-02-16T06:07:42.102Z] <<< HTTP RESPONSE 200
+[debug] [2019-02-16T06:07:42.105Z] >>> HTTP REQUEST GET https://cloudresourcemanager.googleapis.com/v1/projects/notemanag  
+ 
+[debug] [2019-02-16T06:07:42.493Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Serving from 'C:\Users\itsan\Desktop\ReactCrud\my-crud'...
+[info] 
+[debug] [2019-02-16T06:07:42.506Z] >>> HTTP REQUEST GET https://mobilesdk-pa.googleapis.com/v1/projects/1098429367194/clients/_:getWebAppConfig  
+ 
+[debug] [2019-02-16T06:07:43.272Z] <<< HTTP RESPONSE 200
+[info] i  hosting: Serving hosting files from: public
+[info] +  hosting: Local server: http://localhost:5000
