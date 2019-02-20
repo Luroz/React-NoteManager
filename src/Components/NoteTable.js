@@ -8,18 +8,28 @@ const NoteTable = ({
   onEdit,
   onEditChange,
   onComplete,
+  onAlphabetic,
   filterer = '',
 }) => (
     <React.Fragment>
       {(filterer !== '' || notes.length > 1) && (
-        <button
-          className="btn btn-danger btn-sm rounded m-3"
-          onClick={onDeleteAll}>Delete All Notes</button>
+        <React.Fragment>
+          <button
+            className="btn btn-danger btn-sm rounded m-3"
+            onClick={onDeleteAll}>
+            Delete All Notes
+          </button>
+          <button
+            className="btn btn-warning btn-sm rounded m-3"
+            onClick={onAlphabetic}>
+            Order the notes
+          </button>
+        </React.Fragment>
       )}
       <div className="form-group card p-2">
         <input
           className='form-control mb1-3'
-          placeholder='Search'
+          placeholder='Search(Key sensitive)'
           type="text"
           name='filter'
           value={filterer}

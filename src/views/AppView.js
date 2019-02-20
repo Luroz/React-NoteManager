@@ -1,15 +1,14 @@
 import React, { Component } from 'react';
-import NoteNav from './Components/NoteNav'
-import NoteForm from './Components/NoteForm';
-import NoteTable from './Components/NoteTable';
-import fire from './config/Fire';
-import LogIn from './Components/LogIn';
+import NoteNav from '../Components/NoteNav'
+import fire from '../config/Fire';
+import LogIn from './LogIn';
 
-class NoteView extends Component {
+
+class AppView extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      user: '',
+      user: [],
       title: '',
       description: '',
       highImportance: '',
@@ -151,54 +150,25 @@ class NoteView extends Component {
     fire.auth().onAuthStateChanged((user) => {
       if (user) {
         this.setState({ user });
-        localStorage.setItem('user', user.uid);
       } else {
         this.setState({ user: null });
-        localStorage.removeItem('user');
       }
     });
   }
 
 
   render() {
-    const { title, description, notes, results, filter, user } = this.state;
     return (
       <React.Fragment>
         <div className='Navbar'>
           <NoteNav />
         </div>
         <div className="container">
-          {user ?
-            <div className="row">
-              <div className="col-md-6 mt-3">
-                <NoteForm
-                  title={title}
-                  description={description}
-                  onChange={this.onChange}
-                  onClear={this.onClear}
-                  submit={this.onSubmit}
-
-                />
-              </div>
-              <div className="col-md-6 mt-3">
-                <NoteTable
-                  notes={filter === '' ? notes : results}
-                  onDelete={this.onDelete}
-                  onDeleteAll={this.onDeleteAll}
-                  onEditChange={this.onEditChange}
-                  onEdit={this.onEdit}
-                  filterer={filter}
-                  onFilter={this.onFilter}
-                  onChange={this.onChange}
-                  onComplete={this.onComplete}
-                />
-              </div>
-            </div> : <LogIn />}
-
+          <LogIn history={this.props.history} />
         </div>
       </React.Fragment>
     )
   }
 }
 
-export default NoteView;
+export default AppView;
